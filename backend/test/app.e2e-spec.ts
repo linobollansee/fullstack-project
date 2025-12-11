@@ -21,12 +21,11 @@ describe('AppController (e2e)', () => {
       .get('/')
       .expect(200)
       .expect((res) => {
-        expect(res.body).toHaveProperty('name', 'Fullstack Shop API');
-        expect(res.body).toHaveProperty('version', '1.0.0');
-        expect(res.body).toHaveProperty('status', 'running');
-        expect(res.body).toHaveProperty('endpoints');
+        expect(res.body).toHaveProperty('message');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        expect(res.body.endpoints).toHaveProperty('documentation', '/api');
+        expect(res.body.message).toContain('Backend is working');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        expect(res.body.message).toContain('/api');
       });
   });
 });
