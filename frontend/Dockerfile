@@ -12,8 +12,9 @@ RUN npm ci
 # Copy source files
 COPY . .
 
-# Set environment variable for build
-ENV NEXT_PUBLIC_API_URL=http://localhost:3001
+# Accept API URL as build argument
+ARG NEXT_PUBLIC_API_URL=http://localhost:3001
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
 # Build the application
 RUN npm run build
