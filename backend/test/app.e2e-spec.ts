@@ -25,6 +25,7 @@ describe('AppController (e2e)', () => {
         expect(res.body).toHaveProperty('version', '1.0.0');
         expect(res.body).toHaveProperty('status', 'running');
         expect(res.body).toHaveProperty('endpoints');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(res.body.endpoints).toHaveProperty('documentation', '/api');
       });
   });
