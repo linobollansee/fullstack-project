@@ -6,8 +6,16 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
-  app.enableCors();
+  // Enable CORS - Allow requests from frontend
+  // LOCAL: http://localhost:3000 (development)
+  // PRODUCTION: https://fullstack-shop-frontend.onrender.com
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://fullstack-shop-frontend.onrender.com',
+    ],
+    credentials: true,
+  });
 
   // Enable validation
   app.useGlobalPipes(
