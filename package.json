@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "start": "npm run db:start && npm run backend:start & npm run frontend:start",
+    "db:start": "docker compose up -d postgres",
+    "backend:start": "cd backend && npm run start:dev",
+    "frontend:start": "cd frontend && npm run dev",
+    "stop": "docker compose down",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "test:backend": "cd backend && npm test",
+    "test:e2e": "cd backend && npm run test:e2e",
+    "build:all": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build"
+  }
+}
