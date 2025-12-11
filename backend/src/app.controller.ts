@@ -1,12 +1,24 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getInfo() {
+    return {
+      name: 'Fullstack Shop API',
+      version: '1.0.0',
+      status: 'running',
+      endpoints: {
+        documentation: '/api',
+        products: '/products',
+        orders: '/orders',
+        customers: '/customers',
+        auth: {
+          login: '/auth/login',
+          register: '/auth/register',
+        },
+      },
+      message: 'Visit /api for complete API documentation',
+    };
   }
 }
