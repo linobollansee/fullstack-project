@@ -22,6 +22,18 @@ export class CustomersController {
 
   // Users are created through /auth/register endpoint
 
+  // Get all customers
+  @Get()
+  async findAll() {
+    const customers = await this.customersService.findAll();
+    // Remove passwords from response
+    return customers.map((customer) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...result } = customer;
+      return result;
+    });
+  }
+
   // Get current user's profile
   @Get('me')
   async getProfile(@CurrentUser() user: any) {
