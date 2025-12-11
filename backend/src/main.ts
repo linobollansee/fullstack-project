@@ -6,6 +6,18 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // DEBUG: Log environment variables on startup
+  console.log('=== Environment Variables Check ===');
+  console.log('DATABASE_HOST:', process.env.DATABASE_HOST || 'NOT SET');
+  console.log('DATABASE_PORT:', process.env.DATABASE_PORT || 'NOT SET');
+  console.log('DATABASE_USER:', process.env.DATABASE_USER || 'NOT SET');
+  console.log('DATABASE_NAME:', process.env.DATABASE_NAME || 'NOT SET');
+  console.log('NODE_ENV:', process.env.NODE_ENV || 'NOT SET');
+  console.log('JWT_SECRET:', process.env.JWT_SECRET ? '***SET***' : 'NOT SET');
+  console.log('JWT_EXPIRES_IN:', process.env.JWT_EXPIRES_IN || 'NOT SET');
+  console.log('PORT:', process.env.PORT || '3001 (default)');
+  console.log('===================================');
+
   // Enable CORS - Allow requests from frontend
   // LOCAL: http://localhost:3000 (development)
   // PRODUCTION: https://fullstack-shop-frontend.onrender.com
