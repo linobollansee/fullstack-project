@@ -43,7 +43,7 @@
 ### 4. Database (PostgreSQL) ✅
 
 - Created docker-compose.yml for local development
-- Configured PostgreSQL 15 Alpine
+- Configured PostgreSQL 18 Alpine
 - Local: Docker container
 - Production: Managed PostgreSQL on Render
 

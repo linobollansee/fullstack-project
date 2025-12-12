@@ -1324,7 +1324,7 @@
 
 - **NestJS 11:** Modern Node.js framework with TypeScript
 - **TypeORM:** SQL database ORM with entity relationships
-- **PostgreSQL 15:** Robust relational database
+- **PostgreSQL 18:** Robust relational database
 - **Passport JWT:** Industry-standard authentication
 - **Bcrypt:** Password hashing with 12 salt rounds
 - **Swagger/OpenAPI:** Auto-generated API documentation

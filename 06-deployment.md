@@ -131,11 +131,9 @@ npm-debug.log
 Update `docker-compose.yml` in project root:
 
 ```yaml
-version: "3.8"
-
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:18-alpine
     container_name: fullstack-postgres
     environment:
       POSTGRES_USER: admin
@@ -361,11 +359,9 @@ Render will automatically redeploy when you push to GitHub.
 Create `docker-compose.dev.yml` for development:
 
 ```yaml
-version: "3.8"
-
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:18-alpine
     container_name: fullstack-postgres-dev
     environment:
       POSTGRES_USER: admin
@@ -577,13 +573,13 @@ jobs:
   build-backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Backend
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
           file: ./backend/Dockerfile
@@ -593,13 +589,13 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Frontend
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           file: ./frontend/Dockerfile
