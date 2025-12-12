@@ -3,9 +3,9 @@ services:
     image: postgres:15-alpine
     container_name: fullstack-postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: shopdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -19,15 +19,15 @@ services:
       dockerfile: Dockerfile
     container_name: fullstack-backend
     environment:
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: admin
-      DATABASE_PASSWORD: admin123
-      DATABASE_NAME: shopdb
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: ${POSTGRES_DB}
       PORT: 3001
-      NODE_ENV: production
-      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production-12345
-      JWT_EXPIRES_IN: 1d
+      NODE_ENV: ${NODE_ENV}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
     ports:
       - "3001:3001"
     depends_on:
@@ -39,9 +39,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     container_name: fullstack-frontend
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:3001
     ports:
       - "3000:3000"
     depends_on:
