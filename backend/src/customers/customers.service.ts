@@ -28,7 +28,7 @@ export class CustomersService {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(createCustomerDto.password, 10);
+    const hashedPassword = await bcrypt.hash(createCustomerDto.password, 12);
 
     const customer = this.customersRepository.create({
       ...createCustomerDto,
@@ -85,7 +85,7 @@ export class CustomersService {
     if (updateCustomerDto.password) {
       updateCustomerDto.password = await bcrypt.hash(
         updateCustomerDto.password,
-        10,
+        12,
       );
     }
 
