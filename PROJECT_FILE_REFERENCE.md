@@ -948,8 +948,8 @@
 **Intention:** Define frontend application configuration  
 **Little Known Facts:**
 
-- Next.js 16.0.8 (React 19 support)
-- React 19.2.1 (latest)
+- Next.js 16.0.10 (React 19 support)
+- React 19.2.3 (latest)
 - Tailwind CSS v4 (new major version)
 - Jest + React Testing Library for tests
 - test: jest --watch (development)

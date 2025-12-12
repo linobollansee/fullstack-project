@@ -36,7 +36,7 @@ A complete fullstack e-commerce application built with NestJS, Next.js, PostgreS
 ## 📋 Tech Stack
 
 - **Backend**: NestJS 11, TypeORM, PostgreSQL, Passport, JWT, bcrypt
-- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS 4
+- **Frontend**: Next.js 16.0.10, React 19.2.3, TypeScript, Tailwind CSS 4
 - **Database**: PostgreSQL 18
 - **Testing**: Jest, Supertest
 - **DevOps**: Docker, Docker Compose, GitHub Actions
