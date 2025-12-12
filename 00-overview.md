@@ -43,13 +43,14 @@ By completing this project, you will learn:
 - Database design and SQL operations
 - User authentication and authorization
 - Testing backend and frontend applications
+- Component testing with Jest and React Testing Library
 - CI/CD pipeline setup
 - Docker containerization
 - Production deployment
 
 ## Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v22 or higher)
 - npm or yarn
 - Git
 - Docker Desktop

@@ -68,20 +68,22 @@
 
 ### Testing
 
-- 11 passing tests
-- Unit tests: ProductsService, AuthService
-- E2E tests: Products API
+- 31 passing tests across backend and frontend
+- Backend unit tests: ProductsService, AuthService, AppController (11 tests)
+- Backend E2E tests: Products API, App endpoint (8 tests)
+- Frontend component tests: ProductList, LoginForm (12 tests with Jest + React Testing Library)
 - Test coverage includes core functionality
+- CI/CD runs all tests automatically
 
 ### Code Structure
 
 - **Backend**: 7 modules (app, auth, customers, orders, products, config)
-- **Frontend**: 7 pages, 7 components, auth context, API client
+- **Frontend**: 7 pages, 8 components, 2 test files, auth context, API client
 - **Database**: 4 entities (Customer, Order, OrderItem, Product)
 
 ### Security Implementation
 
-- ✅ Password hashing with bcrypt (10 salt rounds)
+- ✅ Password hashing with bcrypt (12 salt rounds)
 - ✅ JWT authentication with Passport
 - ✅ JWT guards on protected routes
 - ✅ User-specific data authorization
@@ -115,12 +117,13 @@
 
 4. **Frontend**
 
-   - Modern Next.js 15 with App Router
-   - TypeScript for type safety
-   - Tailwind CSS for styling
+   - Modern Next.js 16 with App Router
+   - React 19 with TypeScript for type safety
+   - Tailwind CSS 4 for styling
    - Auth context for global state
    - Protected routes on frontend
    - Bearer token in API requests
+   - Component testing with Jest + React Testing Library
 
 5. **DevOps**
    - Docker containerization
@@ -145,7 +148,7 @@
 
 3. **Password Security**
 
-   - bcrypt with 10 salt rounds
+   - bcrypt with 12 salt rounds
    - Passwords never returned in API responses
    - Separate findByEmail method for authentication
 
@@ -153,6 +156,16 @@
    - Unit tests for business logic (services)
    - E2E tests for API endpoints
    - Comprehensive test coverage for core features
+
+## 🌐 Production Deployment
+
+The application is deployed and running on Render:
+
+- **Backend API**: https://fullstack-shop-backend.onrender.com
+- **Frontend App**: https://fullstack-shop-frontend.onrender.com
+- **Database**: Managed PostgreSQL on Render
+- **Deployment Method**: Docker containers
+- **CI/CD**: GitHub Actions with automated testing
 
 ## 🚀 Ready for Production
 

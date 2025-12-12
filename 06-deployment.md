@@ -19,15 +19,15 @@ Create `backend/Dockerfile`:
 
 ```dockerfile
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (including dev for nest CLI)
+RUN npm ci --include=dev
 
 # Copy source code
 COPY . .
@@ -36,7 +36,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -75,44 +75,42 @@ coverage
 Create `frontend/Dockerfile`:
 
 ```dockerfile
-# Build stage
-FROM node:18-alpine AS builder
-
+# Dependencies stage
+FROM node:22-alpine AS deps
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm ci
 
-# Copy source code
+# Build stage
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the application
+# Accept build argument for API URL
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine
-
+FROM node:22-alpine AS runner
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+ENV NODE_ENV=production
 
-# Install production dependencies only
-RUN npm ci --only=production
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copy built application from builder
-COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Expose port
+USER nextjs
+
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
 ```
 
 Create `frontend/.dockerignore`:
@@ -241,11 +239,13 @@ docker-compose down -v
    - **Branch**: `main`
    - **Root Directory**: `backend`
    - **Runtime**: `Node`
-   - **Build Command**: `npm install && npm run build`
+   - **Build Command**: `npm ci --include=dev && npm run build`
    - **Start Command**: `node dist/main`
    - **Plan**: Free
 
 4. **Add Environment Variables**:
+
+   **Important**: Render requires individual DATABASE\_\* variables, not DATABASE_URL
 
    ```
    DATABASE_HOST=<from-render-postgres-internal-host>
@@ -259,6 +259,8 @@ docker-compose down -v
    NODE_ENV=production
    ```
 
+   **Note**: Get the individual connection details from your PostgreSQL service on Render.
+
 5. Click **Create Web Service**
 
 ### Step 3: Deploy Frontend
@@ -271,12 +273,20 @@ docker-compose down -v
    - **Region**: Same as backend
    - **Branch**: `main`
    - **Root Directory**: `frontend`
-   - **Runtime**: `Node`
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
+   - **Runtime**: `Docker`
+   - **Dockerfile Path**: `frontend/Dockerfile`
+   - **Docker Build Context Directory**: `frontend`
    - **Plan**: Free
 
-4. **Add Environment Variables**:
+4. **Add Build Args** (important for Docker build):
+
+   In the "Advanced" section, add:
+
+   ```
+   NEXT_PUBLIC_API_URL=https://fullstack-shop-backend.onrender.com
+   ```
+
+5. **Add Environment Variables** (for runtime):
 
    ```
    NEXT_PUBLIC_API_URL=https://fullstack-shop-backend.onrender.com
@@ -284,7 +294,12 @@ docker-compose down -v
 
    _(Replace with your actual backend URL from Render)_
 
-5. Click **Create Web Service**
+6. Click **Create Web Service**
+
+**Deployment URLs** (example):
+
+- Backend: https://fullstack-shop-backend.onrender.com
+- Frontend: https://fullstack-shop-frontend.onrender.com
 
 ### Step 4: Update CORS Configuration
 
@@ -410,7 +425,7 @@ volumes:
 Create `backend/Dockerfile.dev`:
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -428,7 +443,7 @@ CMD ["npm", "run", "start:dev"]
 Create `frontend/Dockerfile.dev`:
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 

@@ -16,9 +16,9 @@ A complete fullstack e-commerce application built with NestJS, Next.js, PostgreS
 - **Swagger Documentation**: Interactive API docs at `/api`
 - **Testing**: Unit and E2E tests with Jest
 
-### Frontend (Next.js 15)
+### Frontend (Next.js 16)
 
-- **Modern Stack**: App Router, TypeScript, Tailwind CSS
+- **Modern Stack**: App Router, TypeScript, Tailwind CSS 4
 - **Product Management**: Create, list, update, and delete products
 - **Order Management**: Place orders with multiple products
 - **Customer Portal**: View customer list and order history
@@ -35,8 +35,8 @@ A complete fullstack e-commerce application built with NestJS, Next.js, PostgreS
 
 ## 📋 Tech Stack
 
-- **Backend**: NestJS, TypeORM, PostgreSQL, Passport, JWT, bcrypt
-- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: NestJS 11, TypeORM, PostgreSQL, Passport, JWT, bcrypt
+- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS 4
 - **Database**: PostgreSQL 15
 - **Testing**: Jest, Supertest
 - **DevOps**: Docker, Docker Compose, GitHub Actions
@@ -45,7 +45,7 @@ A complete fullstack e-commerce application built with NestJS, Next.js, PostgreS
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - Docker Desktop
 - Git
 
@@ -194,7 +194,7 @@ Linux/Mac:
 
 #### Customers (🔒 All require authentication)
 
-- 🔒 `GET /customers/me` - Get current user profile
+- 🔒 `GET /customers` - Get all customers
 - 🔒 `GET /customers/:id` - Get customer by ID
 - 🔒 `PATCH /customers/:id` - Update customer profile
 - 🔒 `DELETE /customers/:id` - Delete customer account
@@ -209,7 +209,7 @@ Authorization: Bearer <your-jwt-token>
 
 ## 🧪 Testing
 
-**Run Backend Tests:**
+**Backend Tests (19 tests):**
 
 ```bash
 cd backend
@@ -217,6 +217,14 @@ npm test                # Run all tests
 npm run test:watch      # Watch mode
 npm run test:e2e        # E2E tests
 npm run test:cov        # Coverage report
+```
+
+**Frontend Tests (12 tests):**
+
+```bash
+cd frontend
+npm test                # Run all tests
+npm run test:watch      # Watch mode
 ```
 
 ## Docker Deployment
@@ -276,7 +284,7 @@ fullstack-project/
 
 ## 🔐 Security Features
 
-- **Password Hashing**: bcrypt with salt rounds
+- **Password Hashing**: bcrypt with 12 salt rounds
 - **JWT Tokens**: Secure authentication with expiration
 - **Authorization**: User-specific data access (users can only access their own data)
 - **Route Protection**: JWT guards on protected endpoints
@@ -296,10 +304,13 @@ fullstack-project/
 
 ### Testing
 
-- 11 passing tests (unit + E2E)
+- 31 passing tests across backend and frontend
+- Backend: 11 unit tests + 8 E2E tests
+- Frontend: 12 component tests (Jest + React Testing Library)
 - Products service unit tests
 - Authentication service unit tests
 - Products API E2E tests
+- ProductList and LoginForm component tests
 
 ## 📝 License
 
