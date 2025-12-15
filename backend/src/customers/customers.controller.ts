@@ -12,8 +12,12 @@ import {
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { Customer } from './entities/customer.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import type { AuthUser } from '../auth/interfaces/auth-user.interface';
+
+type CustomerResponse = Omit<Customer, 'password'>;
 
 @Controller('customers')
 @UseGuards(JwtAuthGuard)
@@ -24,7 +28,7 @@ export class CustomersController {
 
   // Get all customers
   @Get()
-  async findAll() {
+  async findAll(): Promise<CustomerResponse[]> {
     const customers = await this.customersService.findAll();
     // Remove passwords from response
     return customers.map((customer) => {
@@ -36,7 +40,7 @@ export class CustomersController {
 
   // Get current user's profile
   @Get('me')
-  async getProfile(@CurrentUser() user: any) {
+  async getProfile(@CurrentUser() user: AuthUser): Promise<CustomerResponse> {
     const customer = await this.customersService.findOne(user.id);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = customer;
@@ -44,7 +48,7 @@ export class CustomersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @CurrentUser() user: any) {
+  async findOne(@Param('id') id: string, @CurrentUser() user: AuthUser): Promise<CustomerResponse> {
     if (+id !== user.id) {
       throw new ForbiddenException('You can only access your own profile');
     }
@@ -58,8 +62,8 @@ export class CustomersController {
   async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
-    @CurrentUser() user: any,
-  ) {
+    @CurrentUser() user: AuthUser,
+  ): Promise<CustomerResponse> {
     if (+id !== user.id) {
       throw new ForbiddenException('You can only update your own profile');
     }
@@ -71,7 +75,7 @@ export class CustomersController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string, @CurrentUser() user: any) {
+  remove(@Param('id') id: string, @CurrentUser() user: AuthUser): Promise<void> {
     if (+id !== user.id) {
       throw new ForbiddenException('You can only delete your own profile');
     }

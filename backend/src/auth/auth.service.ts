@@ -2,7 +2,13 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CustomersService } from '../customers/customers.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
+import { Customer } from '../customers/entities/customer.entity';
 import * as bcrypt from 'bcrypt';
+
+export interface AuthResponse {
+  customer: Omit<Customer, 'password'>;
+  access_token: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -11,7 +17,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto): Promise<AuthResponse> {
     const customer = await this.customersService.create(registerDto);
     const { password, ...result } = customer;
 
@@ -22,7 +28,7 @@ export class AuthService {
     };
   }
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto): Promise<AuthResponse> {
     const customer = await this.customersService.findByEmail(loginDto.email);
 
     if (!customer) {
@@ -47,7 +53,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string): Promise<any> {
+  async validateUser(email: string): Promise<Omit<Customer, 'password'> | null> {
     const customer = await this.customersService.findByEmail(email);
     if (customer) {
       const { password, ...result } = customer;

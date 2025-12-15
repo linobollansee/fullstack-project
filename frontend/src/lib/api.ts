@@ -1,18 +1,35 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
+export const OrderStatus = {
+  PENDING: 'pending',
+  PROCESSING: 'processing',
+  SHIPPED: 'shipped',
+  DELIVERED: 'delivered',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type OrderStatusType = (typeof OrderStatus)[keyof typeof OrderStatus];
+
 function getAuthHeaders(): Record<string, string> {
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  if (typeof window === "undefined") {
+    return {};
+  }
+  
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return {};
+  }
+  
+  return { Authorization: `Bearer ${token}` };
 }
 
 export interface Product {
-  id: number;
+  readonly id: number;
   name: string;
   description: string;
   price: number;
-  createdAt: string;
-  updatedAt: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 }
 
 export interface CreateProductDto {
@@ -28,22 +45,22 @@ export interface UpdateProductDto {
 }
 
 export interface OrderItem {
-  id: number;
+  readonly id: number;
   product: Product;
   quantity: number;
   price: number;
 }
 
 export interface Order {
-  id: number;
+  readonly id: number;
   customerName: string;
   customerEmail: string;
   shippingAddress: string;
-  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+  status: OrderStatusType;
   totalAmount: number;
   items: OrderItem[];
-  createdAt: string;
-  updatedAt: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 }
 
 export interface OrderItemDto {
@@ -59,16 +76,16 @@ export interface CreateOrderDto {
 }
 
 export interface UpdateOrderDto {
-  status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+  status?: OrderStatusType;
 }
 
 export interface Customer {
-  id: number;
+  readonly id: number;
   name: string;
   email: string;
   orders?: Order[];
-  createdAt: string;
-  updatedAt: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
 }
 
 export interface CreateCustomerDto {

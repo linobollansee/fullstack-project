@@ -5,6 +5,19 @@
 echo "🚀 Starting Fullstack Project..."
 echo ""
 
+# Ensure Docker is authenticated
+echo "🔐 Checking Docker authentication..."
+if ! docker login > /dev/null 2>&1; then
+    echo "⚠️  Not logged into Docker. Please authenticate:"
+    docker login
+    if [ $? -ne 0 ]; then
+        echo "❌ Docker login failed."
+        exit 1
+    fi
+fi
+echo "✅ Docker authenticated"
+echo ""
+
 # Start PostgreSQL database
 echo "📦 Starting PostgreSQL database..."
 docker compose up -d postgres
