@@ -2,13 +2,13 @@
 
 ## Overview
 
-In this guide, you'll implement JWT-based authentication:
+This guide implements JWT-based authentication with industry-standard security:
 
-- User registration and login
-- Password hashing with bcrypt
-- JWT token generation and validation
-- Protected routes with guards
-- Update existing tests for authentication
+- User registration and login with NestJS
+- Password hashing with bcrypt (salt rounds: 12)
+- JWT token generation and validation using @nestjs/jwt and passport
+- Protected routes with JwtAuthGuard using @nestjs/passport
+- Updated E2E tests with authentication tokens
 
 ---
 

@@ -1,14 +1,15 @@
-# API Documentation - Swagger (Bonus)
+# API Documentation - Swagger
 
 ## Overview
 
-In this guide, you'll add comprehensive API documentation using Swagger/OpenAPI:
+This guide covers comprehensive API documentation using Swagger/OpenAPI 3.0:
 
-- Interactive API documentation
-- Request/response schemas
-- Authentication documentation
-- Try-it-out functionality
-- Export OpenAPI specification
+- Interactive API documentation at `/api` endpoint
+- Automatic request/response schema generation
+- JWT Bearer authentication documentation
+- Live "Try it out" functionality
+- OpenAPI 3.0 specification export
+- Organized by tags (auth, products, orders, customers)
 
 ---
 
@@ -48,43 +49,14 @@ async function bootstrap() {
 
   // Swagger Configuration
   const config = new DocumentBuilder()
-    .setTitle("Fullstack Online Shop API")
-    .setDescription(
-      "RESTful API for managing products, orders, and customers in an online shop. " +
-        "This API includes JWT authentication and role-based access control."
-    )
-    .setVersion("1.0")
-    .addTag("auth", "Authentication endpoints")
-    .addTag("products", "Product management endpoints")
-    .addTag("orders", "Order management endpoints")
-    .addTag("customers", "Customer management endpoints")
-    .addBearerAuth(
-      {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-        name: "JWT",
-        description: "Enter JWT token",
-        in: "header",
-      },
-      "JWT-auth" // This name must match the string in @ApiBearerAuth() decorator
-    )
+    .setTitle('Fullstack Shop API')
+    .setDescription('REST API for the fullstack online shop application')
+    .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("api", app, document, {
-    customSiteTitle: "Shop API Docs",
-    customfavIcon: "https://nestjs.com/img/logo_text.svg",
-    customJs: [
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js",
-    ],
-    customCssUrl: [
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css",
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css",
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
-    ],
-  });
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT ?? 3001);
   console.log(`Application is running on: ${await app.getUrl()}`);

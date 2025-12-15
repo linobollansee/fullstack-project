@@ -1,13 +1,14 @@
-# Deployment - Docker & Render (Bonus)
+# Deployment - Docker & Production
 
 ## Overview
 
-In this guide, you'll learn how to:
+This guide covers production deployment with Docker:
 
-- Containerize backend and frontend with Docker
-- Create a docker-compose setup for local development
-- Deploy to Render (cloud platform)
-- Configure environment variables for production
+- Containerize backend and frontend with multi-stage Docker builds
+- Docker Compose orchestration with PostgreSQL 18, backend, and frontend
+- Health checks and service dependencies
+- Environment variable configuration for production
+- Cloud deployment strategies
 
 ---
 
@@ -126,9 +127,9 @@ npm-debug.log
 .vscode
 ```
 
-### Step 3: Update docker-compose.yml
+### Step 3: Docker Compose Configuration
 
-Update `docker-compose.yml` in project root:
+The `docker-compose.yml` in project root:
 
 ```yaml
 services:
@@ -136,63 +137,105 @@ services:
     image: postgres:18-alpine
     container_name: fullstack-postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: shopdb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
-      - app-network
+      - fullstack-network
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: fullstack-backend
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: ${POSTGRES_DB}
+      PORT: 3001
+      NODE_ENV: ${NODE_ENV}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
     ports:
       - "3001:3001"
-    environment:
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USER: admin
-      DATABASE_PASSWORD: admin123
-      DATABASE_NAME: shopdb
-      JWT_SECRET: your-super-secret-jwt-key-change-this
-      JWT_EXPIRES_IN: 1d
-      PORT: 3001
-      NODE_ENV: production
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
-      - app-network
+      - fullstack-network
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     container_name: fullstack-frontend
     ports:
       - "3000:3000"
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:3001
     depends_on:
       - backend
     networks:
-      - app-network
-
-volumes:
-  postgres_data:
+      - fullstack-network
 
 networks:
-  app-network:
-    driver: bridge
+  fullstack-network:
+    driver: Environment Configuration
+
+Create a `.env` file in the project root:
+
+```env
+# Database
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=admin123
+POSTGRES_DB=shopdb
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+
+# Backend
+NODE_ENV=production
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+JWT_EXPIRES_IN=24h
+
+# Frontend
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
-### Step 4: Test Docker Setup Locally
+### Step 5: Test Docker Setup Locally
 
+Use the startup scripts for automatic Docker login check:
+
+**Windows:**
 ```bash
+.\start-all-services.bat
+```
+
+**Linux/Mac:**
+```bash
+./start-all-services.sh
+```
+
+Or manually:
+```bash
+# Build and start all services
+docker compose up --build
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes (clean start)
+docker 
 # Build and start all services
 docker-compose up --build
 

@@ -2,12 +2,12 @@
 
 ## Overview
 
-In this guide, you'll implement customer management:
+This guide implements customer management:
 
-- Backend REST API for customers
-- Database entity with relationships to orders
-- Frontend UI for customer management
-- Preparation for authentication (password field)
+- Backend REST API for customers with NestJS
+- TypeORM entity with one-to-many relationship to orders
+- Frontend UI for customer management with React components
+- Password field (will be hashed with bcrypt in authentication section)
 
 ## Customer Model
 

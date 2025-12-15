@@ -1,22 +1,32 @@
-# Orders - CRUD Implementation (Optional)
+# Orders - CRUD Implementation
 
 ## Overview
 
-In this guide, you'll implement order management functionality with proper e-commerce features:
+This guide implements order management functionality with proper e-commerce features:
 
-- Backend REST API for orders
-- Junction entity for order items (quantity & price tracking)
-- Database relationships
+- Backend REST API for orders with NestJS
+- Junction entity for order items with quantity and price tracking
+- Proper TypeORM relationships (Order → OrderItem → Product)
 - Frontend UI for order creation and management
+- JWT authentication protected endpoints
 
 ## Order Model
 
+### Order Entity
 - **id**: number (auto-generated)
-- **customer**: Customer (relationship)
-- **items**: OrderItem[] (junction table with quantities)
-- **totalAmount**: number (calculated from items)
-- **status**: OrderStatus enum
-- **customerName**, **customerEmail**, **shippingAddress**: strings
+- **customer**: Customer (many-to-one relationship, optional)
+- **items**: OrderItem[] (one-to-many, cascade, eager loading)
+- **totalAmount**: number (decimal, precision 10, scale 2)
+- **status**: OrderStatus enum (pending, processing, shipped, delivered, cancelled)
+- **customerName**, **customerEmail**, **shippingAddress**: strings (nullable)
+- **createdAt**, **updatedAt**: Date (auto-managed)
+
+### OrderItem Entity (Junction Table)
+- **id**: number (auto-generated)
+- **order**: Order (many-to-one with cascade delete)
+- **product**: Product (many-to-one, eager loading)
+- **quantity**: number (integer)
+- **price**: number (decimal, captured at order time)
 
 ---
 
