@@ -48,18 +48,18 @@ export default function ProductList({ onEdit }: ProductListProps) {
   return (
     <div className="space-y-4">
       {products.length === 0 ? (
-        <p className="text-gray-500 text-center py-8">No products found</p>
+        <p className="text-gray-500 dark:text-gray-400 text-center py-8">No products found</p>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
               key={product.id}
-              className="border rounded-lg p-4 shadow hover:shadow-lg transition"
+              className="border dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow hover:shadow-lg transition"
             >
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-gray-600 mb-4">{product.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{product.description}</p>
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-green-600">
+                <span className="text-2xl font-bold text-green-600 dark:text-green-400">
                   ${Number(product.price).toFixed(2)}
                 </span>
                 <div className="flex gap-2">

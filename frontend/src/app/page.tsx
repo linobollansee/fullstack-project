@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-center">Products Management</h1>
+        <h1 className="text-4xl font-bold text-center dark:text-gray-100">Products Management</h1>
         <Link
           href="/orders"
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

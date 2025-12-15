@@ -12,22 +12,22 @@ export default function Navigation() {
   if (pathname?.startsWith("/auth")) return null;
 
   return (
-    <nav className="bg-white shadow-sm border-b">
+    <nav className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex gap-4">
-            <Link href="/" className="px-3 py-2 rounded hover:bg-gray-100">
+            <Link href="/" className="px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
               Products
             </Link>
             <Link
               href="/orders"
-              className="px-3 py-2 rounded hover:bg-gray-100"
+              className="px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Orders
             </Link>
             <Link
               href="/customers"
-              className="px-3 py-2 rounded hover:bg-gray-100"
+              className="px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Customers
             </Link>
@@ -36,7 +36,7 @@ export default function Navigation() {
           <div className="flex items-center gap-4">
             {user ? (
               <>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   Hello, {user.name}
                 </span>
                 <button

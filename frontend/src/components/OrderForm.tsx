@@ -107,18 +107,18 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-6 rounded-lg shadow"
+      className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
     >
       <h2 className="text-2xl font-bold mb-4">Create New Order</h2>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded">
           {error}
         </div>
       )}
 
       <div>
-        <label className="block text-sm font-medium mb-1">Customer Name</label>
+        <label className="block text-sm font-medium mb-1 dark:text-gray-200">Customer Name</label>
         <input
           type="text"
           required
@@ -126,12 +126,12 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
           onChange={(e) =>
             setFormData({ ...formData, customerName: e.target.value })
           }
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Customer Email</label>
+        <label className="block text-sm font-medium mb-1 dark:text-gray-200">Customer Email</label>
         <input
           type="email"
           required
@@ -153,14 +153,14 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
           onChange={(e) =>
             setFormData({ ...formData, shippingAddress: e.target.value })
           }
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded"
           rows={3}
         />
       </div>
 
       <div>
         <div className="flex justify-between items-center mb-2">
-          <label className="block text-sm font-medium">Order Items</label>
+          <label className="block text-sm font-medium dark:text-gray-200">Order Items</label>
           <button
             type="button"
             onClick={addItem}
@@ -177,7 +177,7 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
               onChange={(e) =>
                 updateItem(index, "productId", Number(e.target.value))
               }
-              className="flex-1 px-3 py-2 border rounded"
+              className="flex-1 px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded"
               required
             >
               <option value={0}>Select a product</option>
@@ -194,7 +194,7 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
               onChange={(e) =>
                 updateItem(index, "quantity", Number(e.target.value))
               }
-              className="w-20 px-3 py-2 border rounded"
+              className="w-20 px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded"
               required
             />
             <button
@@ -219,7 +219,7 @@ export default function OrderForm({ onSuccess }: OrderFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:bg-gray-400"
+        className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:bg-gray-400 disabled:dark:bg-gray-600"
       >
         {loading ? "Creating..." : "Create Order"}
       </button>

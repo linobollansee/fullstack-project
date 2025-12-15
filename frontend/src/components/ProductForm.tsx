@@ -82,7 +82,7 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white p-6 rounded-lg shadow"
+      className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">
@@ -92,7 +92,7 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
           <button
             type="button"
             onClick={handleCancel}
-            className="text-gray-600 hover:text-gray-800"
+            className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
           >
             Cancel
           </button>
@@ -100,13 +100,13 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
       </div>
 
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded">
           {error}
         </div>
       )}
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-1">
+        <label htmlFor="name" className="block text-sm font-medium mb-1 dark:text-gray-200">
           Name
         </label>
         <input
@@ -115,12 +115,12 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium mb-1">
+        <label htmlFor="description" className="block text-sm font-medium mb-1 dark:text-gray-200">
           Description
         </label>
         <textarea
@@ -131,12 +131,12 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div>
-        <label htmlFor="price" className="block text-sm font-medium mb-1">
+        <label htmlFor="price" className="block text-sm font-medium mb-1 dark:text-gray-200">
           Price
         </label>
         <input
@@ -150,14 +150,14 @@ export default function ProductForm({ onSuccess, editProduct, onCancelEdit }: Pr
             const value = e.target.value;
             setFormData({ ...formData, price: value === "" ? 0 : parseFloat(value) });
           }}
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:dark:bg-gray-600"
       >
         {loading ? "Saving..." : editProduct ? "Update Product" : "Add Product"}
       </button>

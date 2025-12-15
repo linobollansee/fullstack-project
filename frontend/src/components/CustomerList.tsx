@@ -49,19 +49,19 @@ export default function CustomerList({ onEdit }: CustomerListProps) {
       <h2 className="text-2xl font-bold mb-4">Customers</h2>
 
       {customers.length === 0 ? (
-        <p className="text-gray-500">No customers yet.</p>
+        <p className="text-gray-500 dark:text-gray-400">No customers yet.</p>
       ) : (
         <div className="grid gap-4">
           {customers.map((customer) => (
             <div
               key={customer.id}
-              className="border rounded-lg p-4 bg-white shadow-sm"
+              className="border dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow-sm"
             >
               <div className="flex justify-between items-start">
                 <div>
                   <h3 className="font-semibold text-lg">{customer.name}</h3>
-                  <p className="text-sm text-gray-600">{customer.email}</p>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{customer.email}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                     Orders: {customer.orders?.length || 0}
                   </p>
                 </div>
@@ -82,7 +82,7 @@ export default function CustomerList({ onEdit }: CustomerListProps) {
                   </button>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 Joined: {new Date(customer.createdAt).toLocaleDateString()}
               </p>
             </div>

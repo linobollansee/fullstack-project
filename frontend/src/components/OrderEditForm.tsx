@@ -36,43 +36,43 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
 
   const getStatusColor = (status: string) => {
     const colors = {
-      pending: "bg-yellow-100 border-yellow-400 text-yellow-800",
-      processing: "bg-blue-100 border-blue-400 text-blue-800",
-      shipped: "bg-purple-100 border-purple-400 text-purple-800",
-      delivered: "bg-green-100 border-green-400 text-green-800",
-      cancelled: "bg-red-100 border-red-400 text-red-800",
+      pending: "bg-yellow-100 border-yellow-400 text-yellow-800 dark:bg-yellow-900 dark:border-yellow-600 dark:text-yellow-200",
+      processing: "bg-blue-100 border-blue-400 text-blue-800 dark:bg-blue-900 dark:border-blue-600 dark:text-blue-200",
+      shipped: "bg-purple-100 border-purple-400 text-purple-800 dark:bg-purple-900 dark:border-purple-600 dark:text-purple-200",
+      delivered: "bg-green-100 border-green-400 text-green-800 dark:bg-green-900 dark:border-green-600 dark:text-green-200",
+      cancelled: "bg-red-100 border-red-400 text-red-800 dark:bg-red-900 dark:border-red-600 dark:text-red-200",
     };
-    return colors[status as keyof typeof colors] || "bg-gray-100 border-gray-400 text-gray-800";
+    return colors[status as keyof typeof colors] || "bg-gray-100 border-gray-400 text-gray-800 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200";
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Order Details</h2>
 
       <div className="space-y-4 mb-6">
         <div>
-          <p className="text-sm text-gray-600">Order ID</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Order ID</p>
           <p className="font-semibold">#{order.id}</p>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600">Customer</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Customer</p>
           <p className="font-semibold">{order.customerName}</p>
-          <p className="text-sm text-gray-500">{order.customerEmail}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{order.customerEmail}</p>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600">Shipping Address</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Shipping Address</p>
           <p className="text-sm">{order.shippingAddress}</p>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600">Items</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Items</p>
           <ul className="space-y-2 mt-2">
             {order.items.map((item) => (
               <li key={item.id} className="flex justify-between text-sm">
                 <span>
-                  {item.product.name} <span className="text-gray-500">x {item.quantity}</span>
+                  {item.product.name} <span className="text-gray-500 dark:text-gray-400">x {item.quantity}</span>
                 </span>
                 <span className="font-medium">
                   ${(Number(item.price) * item.quantity).toFixed(2)}
@@ -82,20 +82,20 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
           </ul>
         </div>
 
-        <div className="border-t pt-4">
+        <div className="border-t dark:border-gray-700 pt-4">
           <div className="flex justify-between items-center">
             <p className="text-lg font-semibold">Total Amount</p>
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400">
               ${Number(order.totalAmount).toFixed(2)}
             </p>
           </div>
         </div>
 
         <div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Created: {new Date(order.createdAt).toLocaleString()}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Last Updated: {new Date(order.updatedAt).toLocaleString()}
           </p>
         </div>
@@ -103,13 +103,13 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded">
             {error}
           </div>
         )}
 
         <div>
-          <label htmlFor="status" className="block text-sm font-medium mb-2">
+          <label htmlFor="status" className="block text-sm font-medium mb-2 dark:text-gray-200">
             Order Status
           </label>
           <select
@@ -124,7 +124,7 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
             <option value={OrderStatus.DELIVERED}>Delivered</option>
             <option value={OrderStatus.CANCELLED}>Cancelled</option>
           </select>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             Change the order status to update the customer
           </p>
         </div>
@@ -133,7 +133,7 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
           <button
             type="submit"
             disabled={loading || status === order.status}
-            className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:dark:bg-gray-600 disabled:cursor-not-allowed"
           >
             {loading ? "Updating..." : "Update Status"}
           </button>
@@ -141,7 +141,7 @@ export default function OrderEditForm({ order, onSuccess, onCancel }: OrderEditF
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+              className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500"
             >
               Close
             </button>

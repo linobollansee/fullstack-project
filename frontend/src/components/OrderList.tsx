@@ -52,13 +52,13 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
 
   const getStatusColor = (status: Order["status"]) => {
     const colors = {
-      pending: "bg-yellow-100 text-yellow-800",
-      processing: "bg-blue-100 text-blue-800",
-      shipped: "bg-purple-100 text-purple-800",
-      delivered: "bg-green-100 text-green-800",
-      cancelled: "bg-red-100 text-red-800",
+      pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+      processing: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+      shipped: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+      delivered: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+      cancelled: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
     };
-    return colors[status] || "bg-gray-100 text-gray-800";
+    return colors[status] || "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
   };
 
   if (loading) return <div className="text-center py-8">Loading orders...</div>;
@@ -69,19 +69,19 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
       <h2 className="text-2xl font-bold mb-4">Orders</h2>
 
       {orders.length === 0 ? (
-        <p className="text-gray-500">No orders yet.</p>
+        <p className="text-gray-500 dark:text-gray-400">No orders yet.</p>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
             <div
               key={order.id}
-              className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
+              className="border dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition"
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
                   <h3 className="font-semibold text-lg">Order #{order.id}</h3>
-                  <p className="text-sm text-gray-600">{order.customerName}</p>
-                  <p className="text-sm text-gray-600">{order.customerEmail}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{order.customerName}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{order.customerEmail}</p>
                 </div>
                 <div className="text-right">
                   <span
@@ -98,7 +98,7 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
               </div>
 
               <div className="mb-3">
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   <span className="font-medium">Shipping Address:</span>{" "}
                   {order.shippingAddress}
                 </p>
@@ -110,7 +110,7 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
                   {order.items.map((item) => (
                     <li
                       key={item.id}
-                      className="text-sm text-gray-700 flex justify-between"
+                      className="text-sm text-gray-700 dark:text-gray-300 flex justify-between"
                     >
                       <span>
                         {item.product.name} x {item.quantity}
@@ -123,7 +123,7 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
                 </ul>
               </div>
 
-              <div className="flex gap-2 mt-4 pt-3 border-t">
+              <div className="flex gap-2 mt-4 pt-3 border-t dark:border-gray-700">
                 {onViewOrder && (
                   <button
                     onClick={() => onViewOrder(order)}
@@ -140,7 +140,7 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
                       e.target.value as Order["status"]
                     )
                   }
-                  className="px-3 py-1 border rounded text-sm"
+                  className="px-3 py-1 border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded text-sm"
                 >
                   <option value="pending">Pending</option>
                   <option value="processing">Processing</option>
@@ -156,7 +156,7 @@ export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProp
                 </button>
               </div>
 
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 Created: {new Date(order.createdAt).toLocaleString()}
               </p>
             </div>
