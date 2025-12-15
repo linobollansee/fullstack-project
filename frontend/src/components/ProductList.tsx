@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import { Product, productsApi } from "@/lib/api";
 
-export default function ProductList() {
+interface ProductListProps {
+  onEdit?: (product: Product) => void;
+}
+
+export default function ProductList({ onEdit }: ProductListProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,12 +62,22 @@ export default function ProductList() {
                 <span className="text-2xl font-bold text-green-600">
                   ${Number(product.price).toFixed(2)}
                 </span>
-                <button
-                  onClick={() => handleDelete(product.id)}
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                >
-                  Delete
-                </button>
+                <div className="flex gap-2">
+                  {onEdit && (
+                    <button
+                      onClick={() => onEdit(product)}
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}

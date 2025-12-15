@@ -5,9 +5,10 @@ import { ordersApi, Order } from "@/lib/api";
 
 interface OrderListProps {
   refreshKey?: number;
+  onViewOrder?: (order: Order) => void;
 }
 
-export default function OrderList({ refreshKey = 0 }: OrderListProps) {
+export default function OrderList({ refreshKey = 0, onViewOrder }: OrderListProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -74,7 +75,7 @@ export default function OrderList({ refreshKey = 0 }: OrderListProps) {
           {orders.map((order) => (
             <div
               key={order.id}
-              className="border rounded-lg p-4 bg-white shadow-sm"
+              className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
             >
               <div className="flex justify-between items-start mb-3">
                 <div>
@@ -123,6 +124,14 @@ export default function OrderList({ refreshKey = 0 }: OrderListProps) {
               </div>
 
               <div className="flex gap-2 mt-4 pt-3 border-t">
+                {onViewOrder && (
+                  <button
+                    onClick={() => onViewOrder(order)}
+                    className="px-4 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+                  >
+                    View Details
+                  </button>
+                )}
                 <select
                   value={order.status}
                   onChange={(e) =>

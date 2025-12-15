@@ -3,13 +3,22 @@
 import { useState } from "react";
 import ProductList from "@/components/ProductList";
 import ProductForm from "@/components/ProductForm";
+import { Product } from "@/lib/api";
 import Link from "next/link";
 
 export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  const handleProductCreated = () => {
+  const handleProductSuccess = () => {
     setRefreshKey((prev) => prev + 1);
+    setEditingProduct(null);
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product);
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -26,11 +35,15 @@ export default function Home() {
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-1">
-          <ProductForm onSuccess={handleProductCreated} />
+          <ProductForm 
+            onSuccess={handleProductSuccess} 
+            editProduct={editingProduct}
+            onCancelEdit={() => setEditingProduct(null)}
+          />
         </div>
 
         <div className="lg:col-span-2">
-          <ProductList key={refreshKey} />
+          <ProductList key={refreshKey} onEdit={handleEditProduct} />
         </div>
       </div>
     </main>

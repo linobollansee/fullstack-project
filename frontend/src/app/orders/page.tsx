@@ -3,13 +3,21 @@
 import { useState } from "react";
 import OrderForm from "@/components/OrderForm";
 import OrderList from "@/components/OrderList";
+import OrderEditForm from "@/components/OrderEditForm";
+import { Order } from "@/lib/api";
 import Link from "next/link";
 
 export default function OrdersPage() {
   const [refreshKey, setRefreshKey] = useState(0);
+  const [viewingOrder, setViewingOrder] = useState<Order | null>(null);
 
   const handleOrderCreated = () => {
     setRefreshKey((prev) => prev + 1);
+  };
+
+  const handleOrderUpdated = () => {
+    setRefreshKey((prev) => prev + 1);
+    setViewingOrder(null);
   };
 
   return (
@@ -27,11 +35,19 @@ export default function OrdersPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
-            <OrderForm onSuccess={handleOrderCreated} />
+            {viewingOrder ? (
+              <OrderEditForm 
+                order={viewingOrder} 
+                onSuccess={handleOrderUpdated}
+                onCancel={() => setViewingOrder(null)}
+              />
+            ) : (
+              <OrderForm onSuccess={handleOrderCreated} />
+            )}
           </div>
 
           <div className="lg:col-span-2">
-            <OrderList refreshKey={refreshKey} />
+            <OrderList refreshKey={refreshKey} onViewOrder={setViewingOrder} />
           </div>
         </div>
       </div>

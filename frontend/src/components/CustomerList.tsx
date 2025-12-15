@@ -3,7 +3,11 @@
 import { useState, useEffect } from "react";
 import { customersApi, Customer } from "@/lib/api";
 
-export default function CustomerList() {
+interface CustomerListProps {
+  onEdit?: (customer: Customer) => void;
+}
+
+export default function CustomerList({ onEdit }: CustomerListProps) {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -61,12 +65,22 @@ export default function CustomerList() {
                     Orders: {customer.orders?.length || 0}
                   </p>
                 </div>
-                <button
-                  onClick={() => handleDelete(customer.id)}
-                  className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
-                >
-                  Delete
-                </button>
+                <div className="flex gap-2">
+                  {onEdit && (
+                    <button
+                      onClick={() => onEdit(customer)}
+                      className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleDelete(customer.id)}
+                    className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
               <p className="text-xs text-gray-500 mt-2">
                 Joined: {new Date(customer.createdAt).toLocaleDateString()}

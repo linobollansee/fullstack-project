@@ -145,7 +145,10 @@ export const productsApi = {
       headers: { "Content-Type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error("Failed to update product");
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Failed to update product: ${error}`);
+    }
     return response.json();
   },
 
