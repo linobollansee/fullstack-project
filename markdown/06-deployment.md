@@ -191,7 +191,13 @@ services:
 
 networks:
   fullstack-network:
-    driver: Environment Configuration
+    driver: bridge
+
+volumes:
+  postgres_data:
+```
+
+### Step 4: Environment Configuration
 
 Create a `.env` file in the project root:
 
@@ -235,15 +241,7 @@ docker compose up --build
 docker compose down
 
 # Stop and remove volumes (clean start)
-docker 
-# Build and start all services
-docker-compose up --build
-
-# Stop all services
-docker-compose down
-
-# Stop and remove volumes (clean start)
-docker-compose down -v
+docker compose down -v
 ```
 
 ---

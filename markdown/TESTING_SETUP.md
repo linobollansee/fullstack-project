@@ -34,7 +34,7 @@ Tests:       12 passed, 12 total
 
 ## Configuration Files
 
-### Jest Configuration ([jest.config.js](frontend/jest.config.js))
+### Jest Configuration (jest.config.js)
 
 - Next.js-compatible setup using `next/jest`
 - jsdom test environment for React component testing
@@ -42,17 +42,17 @@ Tests:       12 passed, 12 total
 - Test file pattern matching
 - Coverage collection configuration
 
-### Jest Setup ([jest.setup.js](frontend/jest.setup.js))
+### Jest Setup (jest.setup.js)
 
 - Imports @testing-library/jest-dom for custom matchers
 - Provides extended matchers like `toBeInTheDocument()`, `toBeDisabled()`, etc.
 
-### TypeScript Configuration ([tsconfig.json](frontend/tsconfig.json))
+### TypeScript Configuration (tsconfig.json)
 
 - Added Jest and @testing-library/jest-dom type definitions
 - Ensures proper TypeScript support for test files
 
-### Package Scripts ([package.json](frontend/package.json))
+### Package Scripts (package.json)
 
 - `npm test` - Run tests in watch mode for development
 - `npm run test:ci` - Run tests once for CI/CD
@@ -68,7 +68,7 @@ Tests:       12 passed, 12 total
 
 ## Component Improvements
 
-Updated [LoginForm.tsx](frontend/src/components/LoginForm.tsx) to include proper label-input associations:
+Updated LoginForm.tsx to include proper label-input associations:
 
 - Added `htmlFor` attributes to labels
 - Added `id` attributes to inputs
@@ -76,7 +76,7 @@ Updated [LoginForm.tsx](frontend/src/components/LoginForm.tsx) to include proper
 
 ## CI/CD Integration
 
-Updated [.github/workflows/ci.yml](.github/workflows/ci.yml):
+Updated `.github/workflows/ci.yml`:
 
 - Frontend tests now run automatically on push and PR
 - Uses `npm run test:ci` command for non-interactive execution

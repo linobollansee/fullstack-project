@@ -7,16 +7,16 @@ For this fullstack project we are going to implement a minimalistic online shop.
 - JWT User Authentication
 
 ## Setup
-- Create a new directory with a git repository for this project. In side of the project directory create a nestjs project and a nextjs project.
+- Create a new directory with a git repository for this project. Inside of the project directory create a nestjs project and a nextjs project.
 
 - Setup a branch protection on github.
-- Setup a CI workflow do run your frontend and your backend tests.
+- Setup a CI workflow to run your frontend and your backend tests.
 - Setup a SQL database (e.g. PostgreSQL) for your application. You can use a local Docker installation.
 - Setup CORS in your NestJS backend to allow requests from your NextJS frontend.
 ```
 const app = await NestFactory.create(AppModule);
 app.enableCors();
-await app.listen(process.env.PORT ?? 3000);
+await app.listen(process.env.PORT ?? 3001);
 ```
 
 ## Products
@@ -29,7 +29,7 @@ Create a full CRUD application for products. This includes the following feature
 - Test your application (both frontend and backend).
 
 ## Orders (Optional)
-Create a full CRUD application for products. This includes the following features:
+Create a full CRUD application for orders. This includes the following features:
 
 - An order has the following properties: id, productIds, totalPrice, customerId
 - Create a REST API in the NestJS backend to manage orders (create, read, update, delete).

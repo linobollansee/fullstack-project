@@ -63,47 +63,35 @@
 
 ### ✅ API Documentation (Swagger)
 
-- *Test Coverage
+- ✅ API Documentation: `/api` endpoint with Swagger UI
+- ✅ Interactive "Try it out" functionality
+- ✅ JWT Bearer authentication in documentation
+- ✅ Organized by tags (auth, products, orders, customers)
 
-### Backend Tests (19 passing)
+### ✅ Deployment
+
+- ✅ Backend Dockerfile (multi-stage build)
+- ✅ Frontend Dockerfile (multi-stage build)
+- ✅ docker-compose.yml for local development
+- ✅ Production environment variables configured
+- ✅ CI/CD with GitHub Actions
+
+### ✅ Test Coverage
+
+#### Backend Tests (19 passing)
 - Products Service: 5 unit tests
 - Products E2E: 5 integration tests
 - Auth Service: 4 unit tests
 - Customers Service: 3 unit tests
 - Orders: 2 unit tests
 
-### Frontend Tests (12 passing)
+#### Frontend Tests (12 passing)
 - ProductList: 3 component tests
 - LoginForm: 3 component tests
 - RegisterForm: 3 component tests
 - Navigation: 3 component tests
 
-## API Endpoints
-
-### Authentication
-- `POST /auth/register` - User registration
-- `POST /auth/login` - User login (returns JWT)
-
-### Products
-- `GET /products` - List all products (public)
-- `GET /products/:id` - Get product by ID (public)
-- `POST /products` - Create product (protected)
-- `PATCH /products/:id` - Update product (protected)
-- `DELETE /products/:id` - Delete product (protected)
-
-### Orders
-- `GET /orders` - List all orders (protected)
-- `GET /orders/:id` - Get order by ID (protected)
-- `POST /orders` - Create order (protected)
-- `PATCH /orders/:id` - Update order status (protected)
-- `DELETE /orders/:id` - Delete order (protected)
-
-### Customers
-- `GET /customers` - List all customers (protected)
-- `GET /customers/:id` - Get customer by ID (protected)
-- `POST /customers` - Create customer (protected)
-- `PATCH /customers/:id` - Update customer (protected)
-- `DELETE /customers/:id` - Delete customer (protected)
+## Configuration
 
 ### Backend (backend/src/main.ts)
 
@@ -132,6 +120,33 @@
 - ✅ TypeScript
 - ✅ Tailwind CSS 4
 - ✅ API URL configured
+
+## API Endpoints
+
+### Authentication
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login (returns JWT)
+
+### Products
+- `GET /products` - List all products (public)
+- `GET /products/:id` - Get product by ID (public)
+- `POST /products` - Create product (protected)
+- `PATCH /products/:id` - Update product (protected)
+- `DELETE /products/:id` - Delete product (protected)
+
+### Orders
+- `GET /orders` - List all orders (protected)
+- `GET /orders/:id` - Get order by ID (protected)
+- `POST /orders` - Create order (protected)
+- `PATCH /orders/:id` - Update order status (protected)
+- `DELETE /orders/:id` - Delete order (protected)
+
+### Customers
+- `GET /customers` - List all customers (protected)
+- `GET /customers/:id` - Get customer by ID (protected)
+- `POST /customers` - Create customer (protected)
+- `PATCH /customers/:id` - Update customer (protected)
+- `DELETE /customers/:id` - Delete customer (protected)
 
 ## Ready to Proceed!
 

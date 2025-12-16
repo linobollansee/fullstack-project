@@ -19,7 +19,7 @@ fullstack-project/
 ├── backend/          # NestJS backend application
 ├── frontend/         # Next.js frontend application
 ├── docker-compose.yml
-└── walkthroughs/     # This guide series
+└── markdown/         # This guide series
 ```
 
 ## Walkthrough Series

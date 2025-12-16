@@ -6,7 +6,7 @@ This guide implements a complete CRUD (Create, Read, Update, Delete) application
 
 - Backend REST API with NestJS and TypeORM
 - PostgreSQL database with proper entity relationships
-- Frontend UI with Next.js 16 App Router
+- Frontend UI with Next.js App Router
 - Comprehensive unit and E2E tests
 
 ## Product Model

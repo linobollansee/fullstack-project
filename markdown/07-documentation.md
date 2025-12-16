@@ -52,7 +52,11 @@ async function bootstrap() {
     .setTitle('Fullstack Shop API')
     .setDescription('REST API for the fullstack online shop application')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    }, 'JWT-auth')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
