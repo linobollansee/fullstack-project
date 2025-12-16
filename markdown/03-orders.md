@@ -854,4 +854,4 @@ curl http://localhost:3001/orders
 
 ## Next Steps
 
-Proceed to [04-customer.md](./04-customer.md) to implement customer management.
+Proceed to [04-customers.md](./04-customers.md) to implement customer management.

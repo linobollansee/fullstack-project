@@ -29,7 +29,7 @@ Follow these guides in order to build the complete application:
 1. **[Setup](./01-setup.md)** - Initialize projects, database, and CI/CD
 2. **[Products](./02-products.md)** - Implement product CRUD operations
 3. **[Orders](./03-orders.md)** - Implement order management (Optional)
-4. **[Customer](./04-customer.md)** - Implement customer management
+4. **[Customers](./04-customers.md)** - Implement customer management
 5. **[User Authentication](./05-user-authentication.md)** - Add JWT authentication
 6. **[Deployment](./06-deployment.md)** - Dockerize and deploy (Bonus)
 7. **[Documentation](./07-documentation.md)** - Add Swagger API docs (Bonus)
