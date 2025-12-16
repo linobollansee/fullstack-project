@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM Fullstack Project Stop Script for Windows
 
 echo 🛑 Stopping all services...

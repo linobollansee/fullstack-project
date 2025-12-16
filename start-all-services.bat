@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM Fullstack Project Startup Script for Windows
 
 echo 🚀 Starting Fullstack Project...
