@@ -57,7 +57,7 @@ JWT_EXPIRES_IN=1d
 
 **Generate secure JWT secret:**
 ```bash
-node secrets/generate-jwt-secret.js
+node scripts/security/generate-secret.js
 ```
 
 ---
@@ -203,7 +203,7 @@ JWT_SECRET=test-secret-key
 
 ```bash
 # Using provided script
-node secrets/generate-jwt-secret.js
+node scripts/security/generate-secret.js
 
 # Using OpenSSL
 openssl rand -base64 32

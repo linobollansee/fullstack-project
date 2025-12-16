@@ -152,7 +152,7 @@ cp backend/.env.example backend/.env
 cp frontend/.env.local.example frontend/.env.local
 
 # Generate JWT secret
-node secrets/generate-jwt-secret.js
+node scripts/security/generate-secret.js
 # Copy output to backend/.env JWT_SECRET
 
 # Start database
@@ -425,7 +425,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 - Use `.env.example` for documentation
 - Generate strong secrets:
 ```bash
-node secrets/generate-jwt-secret.js
+node scripts/security/generate-secret.js
 ```
 
 ## Performance Optimization

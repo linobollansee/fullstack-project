@@ -43,7 +43,7 @@ JWT_EXPIRES_IN=1d
 
 **Generate a secure secret:**
 ```bash
-node secrets/generate-jwt-secret.js
+node scripts/security/generate-secret.js
 ```
 
 ## Input Validation
